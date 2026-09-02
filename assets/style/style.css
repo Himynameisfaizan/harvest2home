@@ -1,0 +1,563 @@
+/* Global Variables */
+:root {
+  --primary-green: #2b5e2c;
+  --accent-orange: #e67e22;
+  --font-main: "Plus Jakarta Sans", sans-serif;
+}
+
+/* Slider Container */
+.hero-slider {
+  font-family: var(--font-main);
+  overflow: hidden;
+}
+
+/* Background Image Setup */
+.slide-bg {
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  position: relative;
+  z-index: 1;
+}
+
+/* Premium Dark Overlay (Taki White Text clear dikhe) */
+.slide-bg::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    90deg,
+    rgba(0, 0, 0, 0.8) 0%,
+    rgba(0, 0, 0, 0.4) 100%
+  );
+  z-index: -1;
+}
+.slide-content {
+  padding: 160px 0 160px 0;
+  color: #ffffff;
+  max-width: 800px;
+  z-index: 2;
+}
+
+/* Typography */
+.slide-subtitle {
+  color: var(--accent-orange);
+  font-weight: 700;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  font-size: 14px;
+  margin-bottom: 15px;
+  display: inline-block;
+}
+
+.slide-title {
+  font-size: 3.5rem;
+  font-weight: 800;
+  line-height: 1.2;
+  margin-bottom: 20px;
+  color: #ffffff;
+}
+
+.slide-text {
+  font-size: 1.1rem;
+  font-weight: 400;
+  opacity: 0.9;
+  margin-bottom: 40px;
+  line-height: 1.6;
+  max-width: 600px;
+}
+
+/* Premium Buttons */
+.btn-theme {
+  background-color: var(--primary-green);
+  color: white;
+  padding: 14px 35px;
+  border-radius: 50px;
+  font-weight: 600;
+  text-decoration: none;
+  transition: all 0.3s ease;
+  border: 2px solid var(--primary-green);
+  display: inline-block;
+}
+
+.btn-theme:hover {
+  background-color: transparent;
+  color: white;
+  border-color: white;
+}
+
+.btn-outline-theme {
+  background-color: transparent;
+  color: white;
+  padding: 14px 35px;
+  border-radius: 50px;
+  font-weight: 600;
+  text-decoration: none;
+  transition: all 0.3s ease;
+  border: 2px solid white;
+  margin-left: 15px;
+  display: inline-block;
+}
+
+.btn-outline-theme:hover {
+  background-color: var(--accent-orange);
+  border-color: var(--accent-orange);
+  color: white;
+}
+
+/* 🌟 Smooth Text Animations 🌟 */
+.carousel-item .animate-box {
+  opacity: 0;
+  transform: translateY(40px);
+  transition: all 0.8s cubic-bezier(0.25, 0.8, 0.25, 1);
+}
+
+/* Jab slide active hogi tabhi text upar aayega */
+.carousel-item.active .slide-subtitle {
+  transition-delay: 0.2s;
+  opacity: 1;
+  transform: translateY(0);
+}
+.carousel-item.active .slide-title {
+  transition-delay: 0.4s;
+  opacity: 1;
+  transform: translateY(0);
+}
+.carousel-item.active .slide-text {
+  transition-delay: 0.6s;
+  opacity: 1;
+  transform: translateY(0);
+}
+.carousel-item.active .slide-buttons {
+  transition-delay: 0.8s;
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Customizing Carousel Indicators (Dots) */
+.carousel-indicators [data-bs-target] {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background-color: white;
+  margin: 0 6px;
+  border: 2px solid transparent;
+  transition: all 0.3s ease;
+}
+
+.carousel-indicators .active {
+  background-color: var(--accent-orange);
+  border-color: white;
+  transform: scale(1.3);
+}
+
+/* Mobile Responsiveness */
+@media (max-width: 768px) {
+  .slide-content {
+    /* Mobile me padding thodi kam taki screen se bahar na jaye */
+    padding: 120px 0 100px 0;
+    text-align: center;
+  }
+
+  .slide-bg::before {
+    /* Mobile me background thoda aur dark taki text easily padha jaye */
+    background: rgba(0, 0, 0, 0.65);
+  }
+
+  .slide-title {
+    font-size: 2.2rem;
+  }
+  .slide-text {
+    font-size: 1rem;
+    margin: 0 auto 30px auto;
+  }
+
+  .btn-outline-theme {
+    margin-left: 0;
+    margin-top: 15px;
+    display: block; /* Mobile me buttons niche-upar aayenge */
+  }
+  .btn-theme {
+    display: block;
+  }
+}
+
+.reveal {
+  opacity: 0;
+  transform: translateY(40px);
+  transition: all 0.8s cubic-bezier(0.5, 0, 0, 1);
+}
+.reveal.active {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* ==============================
+       ABOUT US SECTION STYLING
+       ============================== */
+.about-section {
+  padding: 100px 0;
+  background-color: #ffffff;
+  overflow: hidden;
+}
+
+/* Overlapping Image Premium Design */
+.about-img-wrapper {
+  position: relative;
+  padding-right: 40px;
+  padding-bottom: 40px;
+}
+
+.about-img-main {
+  width: 100%;
+  border-radius: 15px;
+  box-shadow: 0 15px 40px rgba(0, 0, 0, 0.1);
+  position: relative;
+  z-index: 1;
+}
+
+.about-img-sub {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  width: 55%;
+  border-radius: 15px;
+  border: 8px solid #ffffff; /* Gives the cut-out overlapping effect */
+  box-shadow: 0 15px 40px rgba(0, 0, 0, 0.15);
+  z-index: 2;
+}
+
+.experience-badge {
+  position: absolute;
+  top: 30px;
+  left: -20px;
+  background: var(--accent-orange);
+  color: #fff;
+  padding: 20px;
+  border-radius: 10px;
+  text-align: center;
+  z-index: 3;
+  box-shadow: 0 10px 20px rgba(230, 126, 34, 0.3);
+}
+.experience-badge h3 {
+  font-size: 2rem;
+  font-weight: 800;
+  margin: 0;
+}
+.experience-badge p {
+  margin: 0;
+  font-size: 0.9rem;
+  font-weight: 600;
+  text-transform: uppercase;
+}
+
+/* Text Styling */
+.section-subtitle {
+  color: var(--accent-orange);
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  font-size: 14px;
+  margin-bottom: 10px;
+  display: block;
+}
+
+.section-title {
+  font-size: 2.8rem;
+  font-weight: 800;
+  color: var(--primary-green);
+  line-height: 1.2;
+  margin-bottom: 20px;
+}
+
+.about-text {
+  color: var(--text-muted);
+  font-size: 1.05rem;
+  line-height: 1.7;
+  margin-bottom: 30px;
+}
+
+.about-features {
+  list-style: none;
+  padding: 0;
+  margin-bottom: 35px;
+}
+
+.about-features li {
+  margin-bottom: 15px;
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: var(--text-main);
+  display: flex;
+  align-items: center;
+}
+
+.about-features li i {
+  color: var(--accent-orange);
+  font-size: 1.2rem;
+  margin-right: 15px;
+  background: rgba(230, 126, 34, 0.1);
+  padding: 8px;
+  border-radius: 50%;
+}
+
+/* ==============================
+       WHY CHOOSE US SECTION STYLING
+       ============================== */
+.wcu-section {
+  padding: 100px 0;
+  background-color: var(--bg-light); /* Light gray for separation */
+}
+
+.wcu-card {
+  background: #ffffff;
+  padding: 40px 30px;
+  border-radius: 15px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.03);
+  transition: all 0.4s ease;
+  height: 100%;
+  border-bottom: 4px solid transparent;
+  position: relative;
+  overflow: hidden;
+}
+
+.wcu-card:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.08);
+  border-bottom: 4px solid var(--primary-green);
+}
+
+.wcu-icon {
+  width: 70px;
+  height: 70px;
+  background: rgba(43, 94, 44, 0.05);
+  color: var(--primary-green);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 30px;
+  margin-bottom: 25px;
+  transition: all 0.4s ease;
+}
+
+.wcu-card:hover .wcu-icon {
+  background: var(--primary-green);
+  color: #ffffff;
+  transform: scale(1.1) rotate(5deg);
+}
+
+.wcu-card h4 {
+  font-size: 1.4rem;
+  font-weight: 700;
+  color: var(--text-main);
+  margin-bottom: 15px;
+}
+
+.wcu-card p {
+  color: var(--text-muted);
+  font-size: 0.95rem;
+  line-height: 1.6;
+  margin: 0;
+}
+
+@media (max-width: 991px) {
+  .about-img-wrapper {
+    margin-bottom: 50px;
+    padding-right: 20px;
+  }
+  .section-title {
+    font-size: 2.2rem;
+  }
+  .experience-badge {
+    left: 0;
+    top: 10px;
+  }
+}
+
+
+ /* ==============================
+       PRODUCTS SECTION STYLING
+       ============================== */
+    .products-section {
+        padding: 100px 0;
+        background-color: #ffffff;
+    }
+
+    /* Section Header */
+    .section-header {
+        text-align: center;
+        margin-bottom: 50px;
+    }
+    
+    .section-header .subtitle {
+        color: var(--accent-orange);
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 2px;
+        font-size: 14px;
+        display: block;
+        margin-bottom: 10px;
+    }
+
+    .section-header .title {
+        font-size: 2.5rem;
+        font-weight: 800;
+        color: var(--primary-green);
+    }
+
+    /* Product Card Design */
+    .product-card {
+        background: #ffffff;
+        border-radius: 16px;
+        border: 1px solid #f0f0f0;
+        overflow: hidden;
+        transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); /* Bouncy smooth transition */
+        box-shadow: 0 5px 15px rgba(0,0,0,0.02);
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+    }
+
+    .product-card:hover {
+        transform: translateY(-8px);
+        box-shadow: 0 15px 35px rgba(0,0,0,0.08);
+        border-color: rgba(43, 94, 44, 0.2);
+    }
+
+    /* Image Wrapper with Zoom Effect */
+    .product-img-wrapper {
+        width: 100%;
+        aspect-ratio: 4 / 3; /* Sabhi images ka size same rakhne ke liye */
+        overflow: hidden;
+        position: relative;
+        background: #f9f9f9; /* Image load hone tak ka color */
+    }
+
+    .product-img-wrapper img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover; /* Image stretch na ho */
+        transition: transform 0.6s ease;
+    }
+
+    .product-card:hover .product-img-wrapper img {
+        transform: scale(1.08); /* Hover par image zoom hogi */
+    }
+
+    /* View Details Overlay Text on Image */
+    .view-details-overlay {
+        position: absolute;
+        top: 0; left: 0; width: 100%; height: 100%;
+        background: rgba(0,0,0,0.3);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        opacity: 0;
+        transition: all 0.4s ease;
+    }
+    
+    .product-img-wrapper:hover .view-details-overlay {
+        opacity: 1;
+    }
+
+    .view-details-overlay span {
+        background: white;
+        color: var(--primary-green);
+        padding: 8px 20px;
+        border-radius: 30px;
+        font-weight: 600;
+        font-size: 13px;
+        transform: translateY(20px);
+        transition: all 0.4s ease;
+    }
+
+    .product-img-wrapper:hover .view-details-overlay span {
+        transform: translateY(0);
+    }
+
+    /* Product Content */
+    .product-content {
+        padding: 20px;
+        display: flex;
+        flex-direction: column;
+        flex-grow: 1;
+    }
+
+    .product-title-link {
+        text-decoration: none;
+        color: var(--text-dark);
+        display: block;
+        margin-bottom: 15px;
+    }
+
+    .product-title {
+        font-size: 1.15rem;
+        font-weight: 700;
+        margin: 0;
+        transition: color 0.3s ease;
+    }
+
+    .product-title-link:hover .product-title {
+        color: var(--primary-green);
+    }
+
+    /* Action Buttons Area */
+    .product-actions {
+        margin-top: auto; /* Buttons hamesha bottom par rahenge */
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 10px;
+        border-top: 1px solid #f0f0f0;
+        padding-top: 15px;
+    }
+
+    /* Request to Quote Button */
+    .btn-quote-sm {
+        flex-grow: 1;
+        background: transparent;
+        color: var(--primary-green);
+        border: 1.5px solid var(--primary-green);
+        padding: 8px 15px;
+        border-radius: 8px;
+        font-weight: 600;
+        font-size: 13px;
+        text-align: center;
+        text-decoration: none;
+        transition: all 0.3s ease;
+    }
+
+    .btn-quote-sm:hover {
+        background: var(--primary-green);
+        color: white;
+    }
+
+    /* Phone Call Button */
+    .btn-call-sm {
+        width: 38px;
+        height: 38px;
+        background: rgba(230, 126, 34, 0.1);
+        color: var(--accent-orange);
+        border-radius: 8px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        text-decoration: none;
+        transition: all 0.3s ease;
+        flex-shrink: 0;
+    }
+
+    .btn-call-sm:hover {
+        background: var(--accent-orange);
+        color: white;
+        transform: scale(1.1);
+    }
+
+    /* Responsive for mobile grid */
+    @media (max-width: 575px) {
+        .product-img-wrapper { aspect-ratio: 16 / 10; }
+    }
