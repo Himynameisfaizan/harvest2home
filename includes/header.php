@@ -13,6 +13,11 @@
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
 <link rel="stylesheet" href="assets/style/include.css">
 <link rel="stylesheet" href="assets/style/style.css">
+<link rel="stylesheet" href="assets/style/about.css">
+<link rel="stylesheet" href="assets/style/product.css">
+<link rel="stylesheet" href="assets/style/blog.css">
+<link rel="stylesheet" href="assets/style/gallery.css">
+<link rel="stylesheet" href="assets/style/contact.css">
 
 <?php
 $current_page = basename($_SERVER['PHP_SELF']);
@@ -43,6 +48,7 @@ $current_page = basename($_SERVER['PHP_SELF']);
             <li><a href="index.php" class="<?php echo ($current_page == 'index.php' || $current_page == '') ? 'active' : ''; ?>">Home</a></li>
             <li><a href="about.php" class="<?php echo ($current_page == 'about.php') ? 'active' : ''; ?>">About Us</a></li>
             <li><a href="products.php" class="<?php echo ($current_page == 'products.php') ? 'active' : ''; ?>">Our Products</a></li>
+            <li><a href="blog.php" class="<?php echo ($current_page == 'blog.php') ? 'active' : ''; ?>">Blog</a></li>
             <li><a href="gallery.php" class="<?php echo ($current_page == 'gallery.php') ? 'active' : ''; ?>">Our Gallery</a></li>
             <li><a href="contact.php" class="<?php echo ($current_page == 'contact.php') ? 'active' : ''; ?>">Contact Page</a></li>
             <li><a href="contact.php" class="btn-quote">Get Free Quotation</a></li>

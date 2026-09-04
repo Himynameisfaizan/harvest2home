@@ -1,190 +1,477 @@
- :root {
-        /* Logo ke according color palette */
-        --primary-green: #2B5E2C; /* Logo ka dark green */
-        --accent-brown: #8B4513; /* Earthy spice color */
-        --accent-orange: #E67E22; 
-        --text-dark: #1A1A1A;
-        --text-muted: #666666;
-        --bg-white: #FFFFFF;
-        --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-    }
+:root {
+  /* Logo ke according color palette */
+  --primary-green: #2b5e2c; /* Logo ka dark green */
+  --accent-brown: #8b4513; /* Earthy spice color */
+  --accent-orange: #e67e22;
+  --text-dark: #1a1a1a;
+  --text-muted: #666666;
+  --bg-white: #ffffff;
+  --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
 
-    * {
-        margin: 0;
-        padding: 0;
-        box-sizing: border-box;
-        font-family: 'Plus Jakarta Sans', sans-serif; /* Premium modern font */
-    }
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Plus Jakarta Sans", sans-serif; /* Premium modern font */
+}
 
-    /* Topbar - Minimalist */
-    .topbar {
-        background: var(--bg-white);
-        border-bottom: 1px solid #F0F0F0;
-        padding: 8px 5%;
-        display: flex;
-        justify-content: space-between;
-        font-size: 13px;
-        color: var(--text-muted);
-        font-weight: 500;
-    }
+/* Topbar - Minimalist */
+.topbar {
+  background: var(--bg-white);
+  border-bottom: 1px solid #f0f0f0;
+  padding: 8px 5%;
+  display: flex;
+  justify-content: space-between;
+  font-size: 13px;
+  color: var(--text-muted);
+  font-weight: 500;
+}
 
-    .topbar a {
-        color: var(--text-muted);
-        text-decoration: none;
-        transition: var(--transition);
-        margin-left: 20px;
-    }
+.topbar a {
+  color: var(--text-muted);
+  text-decoration: none;
+  transition: var(--transition);
+  margin-left: 20px;
+}
 
-    .topbar a:hover {
-        color: var(--primary-green);
-    }
+.topbar a:hover {
+  color: var(--primary-green);
+}
 
-    .topbar i {
-        color: var(--primary-green);
-        margin-right: 6px;
-    }
+.topbar i {
+  color: var(--primary-green);
+  margin-right: 6px;
+}
 
-    /* Main Header */
-    .main-header {
-        position: sticky;
-        top: 0;
-        background-color: rgba(255, 255, 255, 0.98);
-        backdrop-filter: blur(8px);
-        width: 100%;
-        z-index: 1000;
-        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.04);
-        transition: var(--transition);
-    }
+/* Main Header */
+.main-header {
+  position: sticky;
+  top: 0;
+  background-color: rgba(255, 255, 255, 0.98);
+  backdrop-filter: blur(8px);
+  width: 100%;
+  z-index: 1000;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.04);
+  transition: var(--transition);
+}
 
-    .navbar {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        padding: 18px 5%;
-    }
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 18px 5%;
+}
 
-    /* Logo Styling */
-    .logo a {
-        display: flex;
-        align-items: center;
-        text-decoration: none;
-    }
+/* Logo Styling */
+.logo a {
+  display: flex;
+  align-items: center;
+  text-decoration: none;
+}
 
-    .logo img {
-        height: 70px; /* Apna K2K logo yahan lagayein */
-        object-fit: cover !important;
-        width: 100px;
-    }
+.logo img {
+  height: 70px; /* Apna K2K logo yahan lagayein */
+  object-fit: cover !important;
+  width: 100px;
+}
 
-    /* Navigation Links */
-    .nav-links {
-        display: flex;
-        list-style: none;
-        gap: 35px;
-        align-items: center;
-    }
+/* Navigation Links */
+.nav-links {
+  display: flex;
+  list-style: none;
+  gap: 35px;
+  align-items: center;
+}
 
-    .nav-links li a {
-        text-decoration: none;
-        color: var(--text-dark);
-        font-weight: 600;
-        font-size: 15px;
-        position: relative;
-        padding: 8px 0;
-        transition: var(--transition);
-    }
+.nav-links li a {
+  text-decoration: none;
+  color: var(--text-dark);
+  font-weight: 600;
+  font-size: 15px;
+  position: relative;
+  padding: 8px 0;
+  transition: var(--transition);
+}
 
-    /* Hover Effect */
-    .nav-links li a:hover {
-        color: var(--primary-green);
-    }
+/* Hover Effect */
+.nav-links li a:hover {
+  color: var(--primary-green);
+}
 
-    .nav-links li a::after {
-        content: '';
-        position: absolute;
-        width: 0;
-        height: 2px;
-        bottom: 0;
-        left: 0;
-        background-color: var(--primary-green);
-        transition: width 0.3s ease;
-        border-radius: 2px;
-    }
+.nav-links li a::after {
+  content: "";
+  position: absolute;
+  width: 0;
+  height: 2px;
+  bottom: 0;
+  left: 0;
+  background-color: var(--primary-green);
+  transition: width 0.3s ease;
+  border-radius: 2px;
+}
 
-    .nav-links li a:hover::after {
-        width: 100%;
-    }
+.nav-links li a:hover::after {
+  width: 100%;
+}
 
-    /* 🔥 Active Link Styling 🔥 */
-    .nav-links li a.active {
-        color: var(--primary-green);
-    }
-    
-    .nav-links li a.active::after {
-        width: 100%;
-        background-color: var(--accent-orange); /* Active page ko orange underline se highlight kiya hai */
-    }
+/* 🔥 Active Link Styling 🔥 */
+.nav-links li a.active {
+  color: var(--primary-green);
+}
 
-    /* Premium CTA Button */
-    .btn-quote {
-        background: var(--primary-green);
-        color: var(--bg-white) !important;
-        padding: 12px 28px !important;
-        border-radius: 50px;
-        font-weight: 600 !important;
-        font-size: 15px;
-        border: 2px solid var(--primary-green);
-        transition: var(--transition);
-        box-shadow: 0 4px 15px rgba(43, 94, 44, 0.2);
-    }
+.nav-links li a.active::after {
+  width: 100%;
+  background-color: var(
+    --accent-orange
+  ); /* Active page ko orange underline se highlight kiya hai */
+}
 
-    .btn-quote::after { display: none; } /* Button se underline hatane ke liye */
+/* Premium CTA Button */
+.btn-quote {
+  background: var(--primary-green);
+  color: var(--bg-white) !important;
+  padding: 12px 28px !important;
+  border-radius: 50px;
+  font-weight: 600 !important;
+  font-size: 15px;
+  border: 2px solid var(--primary-green);
+  transition: var(--transition);
+  box-shadow: 0 4px 15px rgba(43, 94, 44, 0.2);
+}
 
-    .btn-quote:hover {
-        background: transparent;
-        color: var(--primary-green) !important;
-        box-shadow: none;
-        transform: translateY(-2px);
-    }
+.btn-quote::after {
+  display: none;
+} /* Button se underline hatane ke liye */
 
-    /* Mobile Hamburger */
-    .menu-toggle {
-        display: none;
-        cursor: pointer;
-        background: transparent;
-        border: none;
-    }
+.btn-quote:hover {
+  background: transparent;
+  color: var(--primary-green) !important;
+  box-shadow: none;
+  transform: translateY(-2px);
+}
 
-    .menu-toggle i {
-        font-size: 24px;
-        color: var(--text-dark);
-    }
+/* Mobile Hamburger */
+.menu-toggle {
+  display: none;
+  cursor: pointer;
+  background: transparent;
+  border: none;
+}
 
-    /* Responsive Design */
-    @media (max-width: 991px) {
-        .topbar { display: none; }
-        
-        .menu-toggle { display: block; }
+.menu-toggle i {
+  font-size: 24px;
+  color: var(--text-dark);
+}
 
-        .nav-links {
-            position: absolute;
-            top: 100%;
-            left: -100%;
-            width: 100%;
-            background: var(--bg-white);
-            flex-direction: column;
-            padding: 20px 0;
-            box-shadow: 0 10px 15px rgba(0,0,0,0.05);
-            transition: 0.4s ease-in-out;
-            gap: 20px;
-        }
+/* Responsive Design */
+@media (max-width: 991px) {
+  .topbar {
+    display: none;
+  }
 
-        .nav-links.active {
-            left: 0;
-        }
+  .menu-toggle {
+    display: block;
+  }
 
-        .btn-quote {
-            display: inline-block;
-            margin-top: 10px;
-        }
-    } 
+  .nav-links {
+    position: absolute;
+    top: 100%;
+    left: -100%;
+    width: 100%;
+    background: var(--bg-white);
+    flex-direction: column;
+    padding: 20px 0;
+    box-shadow: 0 10px 15px rgba(0, 0, 0, 0.05);
+    transition: 0.4s ease-in-out;
+    gap: 20px;
+  }
+
+  .nav-links.active {
+    left: 0;
+  }
+
+  .btn-quote {
+    display: inline-block;
+    margin-top: 10px;
+  }
+}
+
+.footer-section {
+  background-color: #111518; /* Premium Dark/Charcoal Background */
+  color: #d1d5db;
+  padding-top: 80px;
+  font-family: "Plus Jakarta Sans", sans-serif;
+  border-top: 4px solid var(--accent-orange); /* Top colored border for branding */
+}
+
+.footer-widget {
+  margin-bottom: 40px;
+}
+
+/* Logo & About Text */
+.footer-logo img {
+  height: 60px;
+  margin-bottom: 20px;
+  background: white; /* Agar logo transparent PNG nahi hai to ye help karega */
+  padding: 5px 10px;
+  border-radius: 8px;
+}
+
+.footer-about-text {
+  font-size: 0.95rem;
+  line-height: 1.7;
+  margin-bottom: 25px;
+}
+
+/* Verified Trust Badge */
+.trust-badge {
+  display: inline-flex;
+  align-items: center;
+  background: rgba(43, 94, 44, 0.2);
+  border: 1px solid var(--primary-green);
+  color: #4ade80; /* Light Green */
+  padding: 6px 15px;
+  border-radius: 30px;
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.trust-badge i {
+  margin-right: 8px;
+}
+
+/* Widget Titles */
+.footer-title {
+  color: #ffffff;
+  font-size: 1.2rem;
+  font-weight: 700;
+  margin-bottom: 25px;
+  position: relative;
+  padding-bottom: 10px;
+}
+
+.footer-title::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 40px;
+  height: 3px;
+  background-color: var(--primary-green);
+  border-radius: 2px;
+}
+
+/* Quick Links */
+.footer-links {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.footer-links li {
+  margin-bottom: 12px;
+}
+
+.footer-links a {
+  color: #d1d5db;
+  text-decoration: none;
+  font-size: 0.95rem;
+  transition: all 0.3s ease;
+  display: inline-block;
+}
+
+.footer-links a:hover {
+  color: var(--accent-orange);
+  transform: translateX(5px); /* Arrow jaisa slide effect */
+}
+
+.footer-links a i {
+  font-size: 10px;
+  margin-right: 8px;
+  color: var(--primary-green);
+}
+
+/* Contact Info */
+.footer-contact-list {
+  list-style: none;
+  padding: 0;
+}
+
+.footer-contact-list li {
+  display: flex;
+  margin-bottom: 18px;
+  font-size: 0.95rem;
+  line-height: 1.5;
+}
+
+.footer-contact-list li i {
+  color: var(--accent-orange);
+  font-size: 1.2rem;
+  margin-right: 15px;
+  margin-top: 4px;
+}
+
+.footer-contact-list li a {
+  color: #d1d5db;
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+
+.footer-contact-list li a:hover {
+  color: var(--accent-orange);
+}
+
+/* Social Icons */
+.footer-socials {
+  display: flex;
+  gap: 12px;
+  margin-top: 20px;
+}
+
+.footer-socials a {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 38px;
+  height: 38px;
+  background: rgba(255, 255, 255, 0.05);
+  color: #ffffff;
+  border-radius: 50%;
+  text-decoration: none;
+  transition: all 0.3s ease;
+}
+
+.footer-socials a:hover {
+  background: var(--primary-green);
+  transform: translateY(-3px);
+}
+
+/* Footer Bottom / Copyright */
+.footer-bottom {
+  background-color: #0a0c0e; /* Thoda aur dark end ke liye */
+  padding: 20px 0;
+  margin-top: 40px;
+  border-top: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.footer-bottom-content {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 0.9rem;
+}
+
+.footer-bottom-content p {
+  margin: 0;
+}
+
+.footer-bottom-content a {
+  color: var(--accent-orange);
+  text-decoration: none;
+}
+
+@media (max-width: 768px) {
+  .footer-bottom-content {
+    flex-direction: column;
+    text-align: center;
+    gap: 10px;
+  }
+}
+
+/* ==============================
+       BREADCRUMB SECTION STYLING
+       ============================== */
+.breadcrumb-wrapper {
+  background:
+    linear-gradient(rgba(43, 94, 44, 0.85), rgba(20, 54, 21, 0.95)),
+    url("https://images.unsplash.com/photo-1596040033229-a9821ebd058d?q=80&w=2000&auto=format&fit=crop")
+      center center / cover no-repeat fixed;
+  padding: 100px 0 80px 0;
+  text-align: center;
+  color: #ffffff;
+  position: relative;
+  margin-top: 0;
+}
+
+.breadcrumb-title {
+  font-family: "Plus Jakarta Sans", sans-serif;
+  font-size: 3rem;
+  font-weight: 800;
+  letter-spacing: 1px;
+  margin-bottom: 15px;
+  text-transform: capitalize;
+  animation: slideDown 0.8s cubic-bezier(0.25, 0.8, 0.25, 1) forwards;
+  opacity: 0;
+  transform: translateY(-20px);
+}
+
+.custom-breadcrumb {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  font-size: 1.05rem;
+  font-weight: 500;
+  animation: slideUp 0.8s cubic-bezier(0.25, 0.8, 0.25, 1) 0.2s forwards;
+  opacity: 0;
+  transform: translateY(20px);
+}
+
+.custom-breadcrumb li {
+  display: inline-flex;
+  align-items: center;
+}
+
+.custom-breadcrumb li a {
+  color: var(--accent-orange, #e67e22);
+  text-decoration: none;
+  transition: all 0.3s ease;
+}
+
+.custom-breadcrumb li a:hover {
+  color: #ffffff;
+}
+
+.custom-breadcrumb li i {
+  margin-right: 6px;
+}
+
+.custom-breadcrumb li + li::before {
+  content: "\276F";
+  padding: 0 12px;
+  color: rgba(255, 255, 255, 0.5);
+  font-size: 0.9rem;
+}
+
+.custom-breadcrumb li.active {
+  color: #d1d5db;
+}
+
+@keyframes slideDown {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+@keyframes slideUp {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Mobile Adjustments */
+@media (max-width: 768px) {
+  .breadcrumb-wrapper {
+    padding: 80px 0 60px 0;
+  }
+  .breadcrumb-title {
+    font-size: 2.2rem;
+  }
+  .custom-breadcrumb {
+    font-size: 0.95rem;
+  }
+}

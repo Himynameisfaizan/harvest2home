@@ -270,6 +270,287 @@
     </div>
 </section>
 
+<!-- ==============================
+     BUSINESS STATS SECTION
+     ============================== -->
+<section class="stats-section">
+    <div class="container">
+        <div class="row">
+            
+            <div class="col-lg-3 col-6">
+                <div class="stat-box reveal">
+                    <i class="fa-solid fa-earth-americas stat-icon"></i>
+                    <div class="stat-number">
+                        <span class="counter" data-target="15">0</span><span>+</span>
+                    </div>
+                    <div class="stat-text">Countries Exported</div>
+                </div>
+            </div>
+
+            <div class="col-lg-3 col-6">
+                <div class="stat-box reveal">
+                    <i class="fa-solid fa-seedling stat-icon"></i>
+                    <div class="stat-number">
+                        <span class="counter" data-target="50">0</span><span>+</span>
+                    </div>
+                    <div class="stat-text">Premium Products</div>
+                </div>
+            </div>
+
+            <div class="col-lg-3 col-6">
+                <div class="stat-box reveal">
+                    <i class="fa-solid fa-users stat-icon"></i>
+                    <div class="stat-number">
+                        <span class="counter" data-target="200">0</span><span>+</span>
+                    </div>
+                    <div class="stat-text">Happy Global Clients</div>
+                </div>
+            </div>
+
+            <div class="col-lg-3 col-6">
+                <div class="stat-box reveal">
+                    <i class="fa-solid fa-award stat-icon"></i>
+                    <div class="stat-number">
+                        <span class="counter" data-target="10">0</span><span>+</span>
+                    </div>
+                    <div class="stat-text">Years Experience</div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</section>
+
+
+<!-- ==============================
+     PHOTO GALLERY SECTION
+     ============================== -->
+<section class="gallery-section">
+    <div class="container">
+        
+        <!-- Header -->
+        <div class="section-header reveal text-center">
+            <span class="subtitle" style="color: var(--accent-orange); font-weight:700; letter-spacing:2px; font-size:14px; display:block; margin-bottom:10px;">See Our Experience</span>
+            <h2 class="title" style="font-size:2.5rem; font-weight:800; color:var(--primary-green);">Photo Gallery</h2>
+        </div>
+
+        <!-- 8 Image Grid -->
+        <div class="gallery-grid reveal">
+            <?php 
+            // Gallery Images Array (Replace with your factory/product images)
+            $gallery_images = [
+                "https://images.unsplash.com/photo-1596040033229-a9821ebd058d?q=80&w=800&auto=format&fit=crop",
+                "https://images.unsplash.com/photo-1615486171448-4228965f7c32?q=80&w=800&auto=format&fit=crop",
+                "https://images.unsplash.com/photo-1599909631717-380d0d84c1f5?q=80&w=800&auto=format&fit=crop",
+                "https://images.unsplash.com/photo-1606914501449-5a96b6ce24ca?q=80&w=800&auto=format&fit=crop",
+                "https://images.unsplash.com/photo-1606913084603-3e7702b01627?q=80&w=800&auto=format&fit=crop",
+                "https://images.unsplash.com/photo-1610444586938-1ee4b77242ba?q=80&w=800&auto=format&fit=crop",
+                "https://images.unsplash.com/photo-1596647271810-67c47d6d59b2?q=80&w=800&auto=format&fit=crop",
+                "https://images.unsplash.com/photo-1613214149811-37d457497d39?q=80&w=800&auto=format&fit=crop"
+            ];
+
+            foreach($gallery_images as $img): 
+            ?>
+            
+            <div class="gallery-item" onclick="openLightbox('<?php echo $img; ?>')">
+                <img src="<?php echo $img; ?>" alt="K2K Gallery Image">
+                <div class="gallery-overlay">
+                    <i class="fa-solid fa-magnifying-glass-plus"></i>
+                </div>
+            </div>
+            
+            <?php endforeach; ?>
+        </div>
+
+    </div>
+</section>
+
+<!-- Lightbox Modal Container (Hidden by default) -->
+<div class="k2k-lightbox" id="lightbox">
+    <span class="lightbox-close" onclick="closeLightbox()">&times;</span>
+    <img id="lightbox-img" src="" alt="Enlarged Gallery Image">
+</div>
+
+<!-- ==============================
+     BLOG & INSIGHTS SECTION
+     ============================== -->
+<section class="blog-section">
+    <div class="container">
+        
+        <!-- Section Header -->
+        <div class="section-header reveal text-center mb-5">
+            <span class="subtitle" style="color: var(--accent-orange); font-weight:700; letter-spacing:2px; font-size:14px; display:block; margin-bottom:10px;">News & Insights</span>
+            <h2 class="title" style="font-size:2.5rem; font-weight:800; color:var(--primary-green);">Latest From K2K</h2>
+        </div>
+
+        <div class="row g-4">
+            
+            <?php 
+            // Dummy Data array for Blogs
+            $blogs = [
+                [
+                    "title" => "Top 5 Health Benefits of Consuming Pure Turmeric Daily", 
+                    "date" => "Sep 01, 2026", 
+                    "category" => "Health", 
+                    "author" => "Admin",
+                    "img" => "https://images.unsplash.com/photo-1615486171448-4228965f7c32?q=80&w=800&auto=format&fit=crop", 
+                    "excerpt" => "Turmeric isn't just a spice; it's a superfood. Discover how pure, unadulterated turmeric can boost your immunity and overall wellness.",
+                    "link" => "blog-single.php"
+                ],
+                [
+                    "title" => "How K2K Ensures International Export Quality Standards", 
+                    "date" => "Aug 25, 2026", 
+                    "category" => "Export", 
+                    "author" => "Quality Team",
+                    "img" => "https://images.unsplash.com/photo-1606914501449-5a96b6ce24ca?q=80&w=800&auto=format&fit=crop", 
+                    "excerpt" => "Take a deep dive into our state-of-the-art processing units where we maintain zero human touch and rigorous quality checks.",
+                    "link" => "blog-single.php"
+                ],
+                [
+                    "title" => "The Journey of Red Chilli: From Farm to Your Kitchen", 
+                    "date" => "Aug 12, 2026", 
+                    "category" => "Farming", 
+                    "author" => "Admin",
+                    "img" => "https://images.unsplash.com/photo-1596040033229-a9821ebd058d?q=80&w=800&auto=format&fit=crop", 
+                    "excerpt" => "Learn about our direct-from-farm approach. We partner with local farmers to bring you the most authentic and spicy red chillies.",
+                    "link" => "blog-single.php"
+                ]
+            ];
+
+            foreach($blogs as $blog): 
+            ?>
+            
+            <!-- Single Blog Card -->
+            <div class="col-lg-4 col-md-6 reveal">
+                <div class="blog-card">
+                    <!-- Image -->
+                    <div class="blog-img-wrapper">
+                        <span class="blog-category"><?php echo $blog['category']; ?></span>
+                        <a href="<?php echo $blog['link']; ?>">
+                            <img src="<?php echo $blog['img']; ?>" alt="Blog Image">
+                        </a>
+                    </div>
+                    
+                    <!-- Content -->
+                    <div class="blog-content">
+                        <div class="blog-meta">
+                            <span><i class="fa-regular fa-calendar-days"></i> <?php echo $blog['date']; ?></span>
+                            <span><i class="fa-regular fa-user"></i> By <?php echo $blog['author']; ?></span>
+                        </div>
+                        
+                        <a href="<?php echo $blog['link']; ?>" class="blog-title">
+                            <?php echo $blog['title']; ?>
+                        </a>
+                        
+                        <p class="blog-excerpt">
+                            <?php echo $blog['excerpt']; ?>
+                        </p>
+                        
+                        <a href="<?php echo $blog['link']; ?>" class="read-more-btn">
+                            Read More <i class="fa-solid fa-arrow-right-long"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <?php endforeach; ?>
+
+        </div>
+    </div>
+</section>
+
+<!-- ==============================
+     NEWSLETTER SECTION
+     ============================== -->
+<section class="newsletter-section reveal">
+    <div class="container">
+        <div class="newsletter-wrapper">
+            <h2>Subscribe to Our Newsletter</h2>
+            <p>Get the latest updates on spice markets, new product launches, and exclusive export quotations directly to your inbox.</p>
+            
+            <form action="#" method="POST" class="newsletter-form">
+                <input type="email" name="email" placeholder="Enter your business email address..." required>
+                <button type="submit" class="newsletter-btn">Subscribe Now <i class="fa-regular fa-paper-plane ms-1"></i></button>
+            </form>
+        </div>
+    </div>
+</section>
+
+<?php include 'includes/footer.php'; ?>
+
+<!-- ==============================
+     JAVASCRIPT FOR COUNTER & LIGHTBOX
+     ============================== -->
+<script>
+    // 1. ANIMATED NUMBER COUNTER LOGIC
+    document.addEventListener("DOMContentLoaded", () => {
+        const counters = document.querySelectorAll('.counter');
+        
+        // Options for the observer (Trigger when 50% of the section is visible)
+        const options = { threshold: 0.5 };
+        
+        const counterObserver = new IntersectionObserver((entries, observer) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const targetElement = entry.target;
+                    const targetNumber = +targetElement.getAttribute('data-target');
+                    
+                    // Count animation function
+                    const updateCount = () => {
+                        const current = +targetElement.innerText;
+                        const increment = targetNumber / 40; // Speed of counting
+
+                        if (current < targetNumber) {
+                            targetElement.innerText = Math.ceil(current + increment);
+                            setTimeout(updateCount, 40);
+                        } else {
+                            targetElement.innerText = targetNumber;
+                        }
+                    };
+                    
+                    updateCount();
+                    observer.unobserve(targetElement); // Animate only once
+                }
+            });
+        }, options);
+
+        counters.forEach(counter => {
+            counterObserver.observe(counter);
+        });
+    });
+
+    // 2. LIGHTBOX LOGIC
+    const lightbox = document.getElementById('lightbox');
+    const lightboxImg = document.getElementById('lightbox-img');
+
+    function openLightbox(imageSrc) {
+        lightboxImg.src = imageSrc;
+        lightbox.classList.add('active');
+        document.body.style.overflow = 'hidden'; // Scroll disable when lightbox is open
+    }
+
+    function closeLightbox() {
+        lightbox.classList.remove('active');
+        document.body.style.overflow = 'auto'; // Scroll enable again
+        // Choti si delay taaki animation complete ho jaye fir src hate
+        setTimeout(() => { lightboxImg.src = ''; }, 300);
+    }
+
+    // Close lightbox if user clicks anywhere outside the image
+    lightbox.addEventListener('click', (e) => {
+        if(e.target === lightbox) {
+            closeLightbox();
+        }
+    });
+
+    // Close lightbox on 'Escape' key press
+    document.addEventListener('keydown', (e) => {
+        if(e.key === "Escape" && lightbox.classList.contains('active')) {
+            closeLightbox();
+        }
+    });
+</script>
+
 <!-- JAVASCRIPT FOR SCROLL ANIMATION -->
 <script>
     document.addEventListener("DOMContentLoaded", function() {
