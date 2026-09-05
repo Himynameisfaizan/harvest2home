@@ -1,104 +1,243 @@
 <?php
+include 'config/connect.php';
 $pageTitle = "Our Products";
 
-include 'includes/header.php';
+// Fetch Global Contact Info for Call Buttons
+$contactQuery = mysqli_query($conn, "SELECT phone FROM contacts LIMIT 1");
+$contactInfo = mysqli_fetch_assoc($contactQuery);
+$sitePhone = !empty($contactInfo['phone']) ? $contactInfo['phone'] : '+919717179432';
 
+// ==========================================
+// 1. FILTER, SEARCH & SORTING LOGIC
+// ==========================================
+$whereClause = "WHERE status = 1";
+$urlParams = []; // Pagination me purane filters yaad rakhne ke liye
+
+// Category Filter
+if (isset($_GET['category']) && !empty($_GET['category'])) {
+    $cat_id = mysqli_real_escape_string($conn, $_GET['category']);
+    $whereClause .= " AND pro_cate = '$cat_id'";
+    $urlParams[] = "category=$cat_id";
+}
+
+// Search Filter
+if (isset($_GET['search']) && !empty($_GET['search'])) {
+    $search = mysqli_real_escape_string($conn, $_GET['search']);
+    $whereClause .= " AND pro_name LIKE '%$search%'";
+    $urlParams[] = "search=" . urlencode($search);
+}
+
+// Sorting Logic
+$orderBy = "ORDER BY id DESC"; // Default (Latest)
+if (isset($_GET['sort'])) {
+    $sort = $_GET['sort'];
+    $urlParams[] = "sort=$sort";
+    if ($sort == 'name_asc') {
+        $orderBy = "ORDER BY pro_name ASC";
+    } elseif ($sort == 'name_desc') {
+        $orderBy = "ORDER BY pro_name DESC";
+    } elseif ($sort == 'oldest') {
+        $orderBy = "ORDER BY id ASC";
+    }
+}
+
+// ==========================================
+// 2. PAGINATION LOGIC
+// ==========================================
+$limit = 9; // Ek page par 9 products dikhayenge (3x3 grid)
+$page = isset($_GET['page']) && is_numeric($_GET['page']) ? (int)$_GET['page'] : 1;
+$offset = ($page - 1) * $limit;
+
+// Total Products Count
+$totalQuery = mysqli_query($conn, "SELECT COUNT(*) as total FROM products $whereClause");
+$totalRow = mysqli_fetch_assoc($totalQuery);
+$total_records = $totalRow['total'];
+$total_pages = ceil($total_records / $limit);
+
+// Build URL string for pagination links
+$queryString = !empty($urlParams) ? "&" . implode("&", $urlParams) : "";
+
+// Fetch Final Data
+$productsQuery = mysqli_query($conn, "SELECT * FROM products $whereClause $orderBy LIMIT $limit OFFSET $offset");
+
+include 'includes/header.php';
 include 'includes/breadcrumb.php';
 ?>
 
 <section class="products-page-section">
     <div class="container">
+        <div class="row">
 
-        <!-- Filter & Sorting Bar -->
-        <div class="filter-bar reveal">
-            <div class="filter-result-count">
-                Showing <span>1–12</span> of 24 results
-            </div>
-            <div class="sort-box">
-                <label for="sortBy">Sort by:</label>
-                <select id="sortBy">
-                    <option value="default">Default sorting</option>
-                    <option value="popularity">Popularity</option>
-                    <option value="new">Latest Spices</option>
-                    <option value="name_asc">Name: A to Z</option>
-                </select>
-            </div>
-        </div>
+            <!-- ==============================
+                 LEFT SIDEBAR (Filters & Categories)
+                 ============================== -->
+            <div class="col-lg-3 mb-5 mb-lg-0 reveal">
+                <div class="catalog-sidebar">
+                    
+                    <!-- Search Widget -->
+                    <div class="sidebar-widget">
+                        <h4 class="sidebar-title">Search Products</h4>
+                        <form class="sidebar-search" action="products.php" method="GET">
+                            <!-- Preserve category if searching within category -->
+                            <?php if(isset($_GET['category'])): ?>
+                                <input type="hidden" name="category" value="<?php echo $_GET['category']; ?>">
+                            <?php endif; ?>
+                            <input type="text" name="search" placeholder="Type product name..." value="<?php echo isset($_GET['search']) ? $_GET['search'] : ''; ?>">
+                            <button type="submit"><i class="fa-solid fa-magnifying-glass"></i></button>
+                        </form>
+                    </div>
 
-        <!-- Products Grid -->
-        <div class="row g-4">
-            <?php
-            // 12 Products array for Page 1
-            $all_products = [
-                ["name" => "Premium Red Chilli Powder", "img" => "https://images.unsplash.com/photo-1596040033229-a9821ebd058d?q=80&w=800"],
-                ["name" => "Organic Turmeric Powder", "img" => "https://images.unsplash.com/photo-1615486171448-4228965f7c32?q=80&w=800"],
-                ["name" => "Coriander (Dhaniya) Powder", "img" => "https://images.unsplash.com/photo-1599909631717-380d0d84c1f5?q=80&w=800"],
-                ["name" => "Black Pepper Seeds", "img" => "https://images.unsplash.com/photo-1606914501449-5a96b6ce24ca?q=80&w=800"],
-                ["name" => "Pure Cumin (Jeera) Seeds", "img" => "https://images.unsplash.com/photo-1606913084603-3e7702b01627?q=80&w=800"],
-                ["name" => "Green Cardamom", "img" => "https://images.unsplash.com/photo-1610444586938-1ee4b77242ba?q=80&w=800"],
-                ["name" => "K2K Special Garam Masala", "img" => "https://images.unsplash.com/photo-1596647271810-67c47d6d59b2?q=80&w=800"],
-                ["name" => "Whole Cloves (Laung)", "img" => "https://images.unsplash.com/photo-1613214149811-37d457497d39?q=80&w=800"],
-                ["name" => "Mustard (Sarson) Seeds", "img" => "https://images.unsplash.com/photo-1596040033229-a9821ebd058d?q=80&w=800"], // Dummy img
-                ["name" => "Star Anise (Chakra Phool)", "img" => "https://images.unsplash.com/photo-1615486171448-4228965f7c32?q=80&w=800"], // Dummy img
-                ["name" => "Cinnamon (Dalchini) Sticks", "img" => "https://images.unsplash.com/photo-1599909631717-380d0d84c1f5?q=80&w=800"], // Dummy img
-                ["name" => "Fennel (Saunf) Seeds", "img" => "https://images.unsplash.com/photo-1606914501449-5a96b6ce24ca?q=80&w=800"] // Dummy img
-            ];
-
-            // Loop for 12 Products
-            foreach ($all_products as $key => $product):
-                // Creating a dummy ID for links
-                $id = $key + 1;
-            ?>
-
-                <!-- Product Item -->
-                <div class="col-lg-3 col-md-4 col-sm-6 col-12 reveal">
-                    <div class="product-card">
-
-                        <a href="product-details.php?id=<?php echo $id; ?>" class="product-img-link">
-                            <div class="product-img-wrapper">
-                                <img src="<?php echo $product['img']; ?>" alt="<?php echo $product['name']; ?>">
-                                <div class="view-details-overlay">
-                                    <span>View Details</span>
-                                </div>
-                            </div>
-                        </a>
-
-                        <div class="product-content">
-                            <a href="product-details.php?id=<?php echo $id; ?>" class="product-title-link">
-                                <h3 class="product-title"><?php echo $product['name']; ?></h3>
-                            </a>
-
-                            <div class="product-actions">
-                                <a href="quotation.php?product=<?php echo urlencode($product['name']); ?>" class="btn-quote-sm">
-                                    Request to Quote
+                    <!-- Categories Widget -->
+                    <div class="sidebar-widget">
+                        <h4 class="sidebar-title">All Categories</h4>
+                        <ul class="cat-list">
+                            <li>
+                                <a href="products.php" class="<?php echo !isset($_GET['category']) ? 'active' : ''; ?>">
+                                    View All Products
                                 </a>
-                                <!-- Call icon link -->
-                                <a href="tel:+919717179432" class="btn-call-sm" title="Call for Enquiry">
-                                    <i class="fa-solid fa-phone"></i>
+                            </li>
+                            <?php 
+                            // Fetch active categories from database
+                            $catQuery = mysqli_query($conn, "SELECT * FROM categories WHERE status = 1");
+                            while($cat = mysqli_fetch_assoc($catQuery)): 
+                                // Count products in this category
+                                $countQ = mysqli_query($conn, "SELECT COUNT(*) as c FROM products WHERE pro_cate='".$cat['cate_id']."' AND status=1");
+                                $pCount = mysqli_fetch_assoc($countQ)['c'];
+                                
+                                $isActive = (isset($_GET['category']) && $_GET['category'] == $cat['cate_id']) ? 'active' : '';
+                            ?>
+                            <li>
+                                <a href="products.php?category=<?php echo $cat['cate_id']; ?>" class="<?php echo $isActive; ?>">
+                                    <?php echo $cat['categories']; ?> <span><?php echo $pCount; ?></span>
                                 </a>
-                            </div>
-                        </div>
+                            </li>
+                            <?php endwhile; ?>
+                        </ul>
+                    </div>
 
+                    <!-- Quick Support Banner -->
+                    <div class="sidebar-widget text-center" style="background: var(--bg-light); padding: 20px; border-radius: 12px; border: 1px dashed var(--accent-orange);">
+                        <i class="fa-solid fa-headset" style="font-size: 30px; color: var(--primary-green); margin-bottom: 10px;"></i>
+                        <h5 style="font-weight: 700; margin-bottom: 10px;">Need Help?</h5>
+                        <p style="font-size: 13px; color: var(--text-muted); margin-bottom: 15px;">Contact our export team for bulk orders.</p>
+                        <a href="tel:<?php echo $sitePhone; ?>" style="color: var(--accent-orange); font-weight: 800; text-decoration: none; font-size: 1.1rem;"><?php echo $sitePhone; ?></a>
+                    </div>
+
+                </div>
+            </div>
+
+            <!-- ==============================
+                 RIGHT MAIN CONTENT (Products Grid)
+                 ============================== -->
+            <div class="col-lg-9">
+                
+                <!-- Filter & Sorting Bar -->
+                <div class="filter-bar reveal">
+                    <div class="filter-result-count">
+                        <?php 
+                        $startItem = ($total_records > 0) ? $offset + 1 : 0;
+                        $endItem = min($offset + $limit, $total_records);
+                        ?>
+                        Showing <span><?php echo $startItem; ?>–<?php echo $endItem; ?></span> of <?php echo $total_records; ?> results
+                    </div>
+                    
+                    <div class="sort-box">
+                        <label for="sortBy">Sort by:</label>
+                        <!-- JavaScript handles the form submission when dropdown changes -->
+                        <select id="sortBy" onchange="window.location.href=this.value;">
+                            <?php 
+                            // Building base URL for sorting to keep search/category intact
+                            $sortBaseUrl = "products.php?";
+                            $sortParams = [];
+                            if(isset($_GET['category'])) $sortParams[] = "category=".$_GET['category'];
+                            if(isset($_GET['search'])) $sortParams[] = "search=".$_GET['search'];
+                            if(!empty($sortParams)) $sortBaseUrl .= implode("&", $sortParams) . "&";
+                            ?>
+                            <option value="<?php echo $sortBaseUrl; ?>sort=latest" <?php echo (!isset($_GET['sort']) || $_GET['sort']=='latest') ? 'selected' : ''; ?>>Latest Products</option>
+                            <option value="<?php echo $sortBaseUrl; ?>sort=oldest" <?php echo (isset($_GET['sort']) && $_GET['sort']=='oldest') ? 'selected' : ''; ?>>Oldest Products</option>
+                            <option value="<?php echo $sortBaseUrl; ?>sort=name_asc" <?php echo (isset($_GET['sort']) && $_GET['sort']=='name_asc') ? 'selected' : ''; ?>>Name: A to Z</option>
+                            <option value="<?php echo $sortBaseUrl; ?>sort=name_desc" <?php echo (isset($_GET['sort']) && $_GET['sort']=='name_desc') ? 'selected' : ''; ?>>Name: Z to A</option>
+                        </select>
                     </div>
                 </div>
 
-            <?php endforeach; ?>
-        </div>
+                <!-- Products Grid -->
+                <div class="row g-4">
+                    <?php
+                    if($total_records > 0) {
+                        while ($product = mysqli_fetch_assoc($productsQuery)):
+                    ?>
+                        <!-- Product Item (Now col-lg-4 inside the 9-col wrapper) -->
+                        <div class="col-lg-4 col-md-6 col-12 reveal">
+                            <div class="product-card">
+                                <a href="product-details.php?id=<?php echo $product['id']; ?>" class="product-img-link">
+                                    <div class="product-img-wrapper">
+                                        <img src="uploads/<?php echo $product['pro_img']; ?>" alt="<?php echo $product['pro_name']; ?>">
+                                        <div class="view-details-overlay">
+                                            <span>View Details</span>
+                                        </div>
+                                    </div>
+                                </a>
 
-        <!-- Pagination Section -->
-        <div class="row reveal">
-            <div class="col-12">
-                <ul class="k2k-pagination">
-                    <li class="prev"><a href="#"><i class="fa-solid fa-arrow-left me-2"></i> Prev</a></li>
-                    <li class="active"><a href="#">1</a></li>
-                    <li><a href="#">2</a></li>
-                    <li><a href="#">3</a></li>
-                    <li><a href="#">...</a></li>
-                    <li class="next"><a href="#">Next <i class="fa-solid fa-arrow-right ms-2"></i></a></li>
-                </ul>
-            </div>
-        </div>
+                                <div class="product-content">
+                                    <a href="product-details.php?id=<?php echo $product['id']; ?>" style="text-decoration: none;">
+                                        <h3 class="product-title"><?php echo $product['pro_name']; ?></h3>
+                                    </a>
 
+                                    <div class="product-actions">
+                                        <a href="contact.php?product=<?php echo urlencode($product['pro_name']); ?>" class="btn-quote-sm">
+                                            Request to Quote
+                                        </a>
+                                        <a href="tel:<?php echo $sitePhone; ?>" class="btn-call-sm" title="Call for Enquiry">
+                                            <i class="fa-solid fa-phone"></i>
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    <?php 
+                        endwhile;
+                    } else {
+                        // Empty State if no products match the filter
+                        echo "
+                        <div class='col-12 text-center py-5'>
+                            <i class='fa-solid fa-box-open' style='font-size: 50px; color: #ccc; margin-bottom: 15px;'></i>
+                            <h3 style='color: var(--text-dark);'>No Products Found</h3>
+                            <p style='color: var(--text-muted);'>Try selecting a different category or search term.</p>
+                            <a href='products.php' class='btn-quote-sm mt-3' style='display:inline-block; padding: 10px 20px;'>Clear All Filters</a>
+                        </div>";
+                    }
+                    ?>
+                </div>
+
+                <!-- Dynamic Pagination -->
+                <?php if($total_pages > 1): ?>
+                <div class="row reveal mt-5">
+                    <div class="col-12">
+                        <ul class="k2k-pagination">
+                            <!-- Prev Button -->
+                            <?php if($page > 1): ?>
+                                <li class="prev"><a href="?page=<?php echo ($page-1).$queryString; ?>"><i class="fa-solid fa-arrow-left me-2"></i> Prev</a></li>
+                            <?php endif; ?>
+
+                            <!-- Page Numbers -->
+                            <?php for($i = 1; $i <= $total_pages; $i++): ?>
+                                <li class="<?php echo ($page == $i) ? 'active' : ''; ?>">
+                                    <a href="?page=<?php echo $i.$queryString; ?>"><?php echo $i; ?></a>
+                                </li>
+                            <?php endfor; ?>
+
+                            <!-- Next Button -->
+                            <?php if($page < $total_pages): ?>
+                                <li class="next"><a href="?page=<?php echo ($page+1).$queryString; ?>">Next <i class="fa-solid fa-arrow-right ms-2"></i></a></li>
+                            <?php endif; ?>
+                        </ul>
+                    </div>
+                </div>
+                <?php endif; ?>
+
+            </div> <!-- End Main Content Col-9 -->
+        </div>
     </div>
 </section>
 
@@ -113,13 +252,10 @@ include 'includes/breadcrumb.php';
                     observer.unobserve(entry.target);
                 }
             });
-        }, {
-            threshold: 0.1
-        }); // Trigger slightly earlier for grid items
+        }, { threshold: 0.1 }); 
 
         reveals.forEach(reveal => revealOnScroll.observe(reveal));
     });
 </script>
 
-<!-- Include Footer -->
 <?php include 'includes/footer.php'; ?>
